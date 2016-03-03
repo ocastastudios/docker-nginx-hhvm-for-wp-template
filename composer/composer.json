@@ -1,0 +1,24 @@
+{
+  "require": {
+    "wikimedia/composer-merge-plugin": "dev-master"
+  },
+  "extra": {
+    "merge-plugin": {
+      "include": [
+        "composer.local.json",
+        "/var/www/public_html/web/app/themes/*/composer.json",
+        "/var/www/public_html/web/app/plugins/*/composer.json",
+        "extensions/*/composer.json"
+      ],
+      "recurse": true,
+      "replace": false,
+      "merge-dev": true,
+      "merge-extra": false
+    },
+    "installer-paths": {
+      "/var/www/public_html/web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "/var/www/public_html/web/app/plugins/{$name}/": ["type:wordpress-plugin"],
+      "/var/www/public_html/web/app/themes/{$name}/": ["type:wordpress-theme"]
+    }
+  }
+}

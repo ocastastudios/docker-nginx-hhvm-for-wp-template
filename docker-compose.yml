@@ -1,0 +1,47 @@
+nginx:
+  image: jwilder/nginx-proxy
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+  ports:
+    - "80:80"
+
+mariadb:
+  image: mariadb
+  volumes:
+    - ./data:/var/data
+  volumes_from:
+    - dbdata
+  environment:
+    MYSQL_ROOT_PASSWORD: "mypass"
+    MYSQL_DATABASE: "wpdb"
+#  volumes:
+#    - ./data/sql:/docker-entrypoint-initdb.d # put your sql dump file(s) in the data/sql directory and the database will be initialzed with it
+  ports:
+    - "3306:3306"
+
+dbdata:  # Used to store the database files
+  image: ubuntu:trusty
+  volumes:
+    - /var/lib/mysql
+  expose:
+    - "20"
+
+wp: # the wp container
+  image: ocasta/nginx-hhvm-for-wp:4.4
+
+  environment:
+    - VIRTUAL_HOST=docker.local
+  links:
+    - mariadb
+  volumes:
+    - ./composer:/var/composer
+    - ./dev-dot-env:/var/www/public_html/.env
+    - ./hhvm/:/etc/hhvm/
+#    - ./my-theme:/var/www/public_html/web/app/themes/my-theme
+#    - ./my-plugin:/var/www/public_html/web/app/themes/my-plugin
+#    - ./environments/development.php:/var/www/public_html/config/environments/development.php
+
+  expose:
+    - "80"
+  ports: # for xdebug
+    - "9000:9000"

@@ -1,0 +1,13 @@
+UPLOADS_DIR=/uploads
+WP_DEBUG=True
+KEY_OVERRIDE=True
+
+DB_NAME=wpdb
+DB_USER=root
+DB_PASSWORD=mypass
+DB_HOST=mariadb
+WP_FS_METHOD=direct
+
+WP_ENV=development
+WP_HOME=http://docker.local/
+WP_SITEURL=http://docker.local/wp
