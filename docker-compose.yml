@@ -25,14 +25,24 @@ dbdata:  # Used to store the database files
     - "20"
 
 wp: # the wp container
-  image: ocasta/nginx-hhvm-for-wp:4.4
+  image: ocasta/nginx-hhvm-for-wp:4.6
   environment:
     - VIRTUAL_HOST=docker.local
+    - UPLOADS_DIR=/uploads
+    - WP_DEBUG=True
+    - KEY_OVERRIDE=True
+    - DB_NAME=wpdb
+    - DB_USER=root
+    - DB_PASSWORD=mypass
+    - DB_HOST=mariadb
+    - WP_FS_METHOD=direct
+    - WP_ENV=development
+    - WP_HOME=http://docker.local/
+    - WP_SITEURL=http://docker.local/wp
   links:
     - mariadb
   volumes:
     - ./composer:/var/composer
-    - ./dev-dot-env:/var/www/public_html/.env
     - ./hhvm/:/etc/hhvm/
 #    - ./my-theme:/var/www/public_html/web/app/themes/my-theme
 #    - ./my-plugin:/var/www/public_html/web/app/themes/my-plugin
