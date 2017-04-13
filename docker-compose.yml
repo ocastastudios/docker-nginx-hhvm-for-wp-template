@@ -25,7 +25,7 @@ dbdata:  # Used to store the database files
     - "20"
 
 wp: # the wp container
-  image: ocasta/nginx-hhvm-for-wp:4.6
+  image: ocasta/nginx-hhvm-for-wp:4.7
   environment:
     - VIRTUAL_HOST=docker.local
     - UPLOADS_DIR=/uploads

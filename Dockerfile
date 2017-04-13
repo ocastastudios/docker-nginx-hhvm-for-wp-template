@@ -1,4 +1,4 @@
-FROM ocasta/nginx-hhvm-for-wp:4.6
+FROM ocasta/nginx-hhvm-for-wp:4.7
 
 # Map any themes or plugins
 #ADD my-theme /var/www/public_html/web/app/themes/my-theme
